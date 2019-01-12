@@ -1,24 +1,43 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Validation from "./validation";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      name: ""
+    };
+    this.handleInputs = this.handleInputs.bind(this);
+    this.manipulateInput = this.manipulateInput.bind(this);
+  }
+
+  handleInputs(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  manipulateInput(index) {
+    let n = this.state.name;
+    n = n.split("");
+    n.splice(index, 1);
+    this.setState({ name: n.join("") });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            value={this.state.name}
+            onChange={this.handleInputs}
+          />
+
+          <br />
+
+          <Validation name={this.state.name} type={"Name"} />
         </header>
       </div>
     );
